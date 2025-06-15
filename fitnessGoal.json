@@ -1,0 +1,144 @@
+{
+  "workouts": [
+    {
+      "weightLoss": {
+        "pushUp": "20 reps",
+        "running": "15 min",
+        "jumpingJacks": "3 sets of 30",
+        "burpees": "3 sets of 15",
+        "mountainClimbers": "3 sets of 40 sec",
+        "highKnees": "3 sets of 30 sec",
+        "squatJumps": "3 sets of 20",
+        "plank": "1 min hold",
+        "cycling": "20 min",
+        "skipping": "10 min"
+      }
+    },
+    {
+      "weightGain": {
+        "pushUp": "3 sets of 20 reps",
+        "benchPress": "4 sets of 8",
+        "deadlift": "3 sets of 5",
+        "squats": "4 sets of 12",
+        "bicepCurl": "3 sets of 10",
+        "tricepDips": "3 sets of 15",
+        "shoulderPress": "3 sets of 10",
+        "lunges": "3 sets of 10 each leg",
+        "proteinIntake": "2000-2500 kcal/day",
+        "running": "5 min warm-up"
+      }
+    },
+    {
+      "height": {
+        "stretching": "15 min",
+        "skipping": "10 min",
+        "hanging": "3 sets of 30 sec",
+        "cobraStretch": "3 sets of 30 sec",
+        "toeTouch": "3 sets of 15",
+        "spotJump": "2 sets of 30",
+        "cycling": "15 min",
+        "yoga": "30 min",
+        "swimming": "optional 20 min",
+        "sprinting": "5 rounds of 50m"
+      }
+    },
+    {
+      "muscleUp": {
+        "pushUp": "4 sets of 25 reps",
+        "pullUp": "4 sets of 10 reps",
+        "dips": "4 sets of 15 reps",
+        "benchPress": "4 sets of 8",
+        "deadlift": "3 sets of 5",
+        "inclinePushUp": "3 sets of 20",
+        "tricepExtension": "3 sets of 12",
+        "widePullUp": "3 sets of 8",
+        "coreTraining": "15 min",
+        "proteinShake": "Post workout"
+      }
+    },
+    {
+      "sixPackAbs": {
+        "crunches": "3 sets of 30",
+        "plank": "3 sets of 1 min",
+        "mountainClimbers": "3 sets of 45 sec",
+        "russianTwist": "3 sets of 25",
+        "legRaise": "3 sets of 20",
+        "bicycleCrunch": "3 sets of 25",
+        "flutterKicks": "3 sets of 30 sec",
+        "Vups": "3 sets of 15",
+        "cardio": "15 min HIIT",
+        "hydration": "3 liters/day"
+      }
+    },
+    {
+      "endurance": {
+        "running": "30 min at steady pace",
+        "cycling": "45 min",
+        "swimming": "30 min",
+        "jumpRope": "5 rounds of 3 min",
+        "rowing": "20 min",
+        "HIIT": "20 min session",
+        "hiking": "1 hour",
+        "stairClimbing": "15 min",
+        "activeRest": "walk 10,000 steps/day",
+        "hydration": "2.5 liters/day"
+      }
+    },
+    {
+      "flexibility": {
+        "yoga": "45 min session",
+        "stretching": "20 min daily",
+        "hamstringStretch": "3 sets of 30 sec",
+        "quadStretch": "3 sets of 30 sec",
+        "sideBend": "3 sets of 15",
+        "cobraPose": "3 sets of 30 sec",
+        "childPose": "3 sets of 1 min",
+        "shoulderRolls": "2 sets of 15",
+        "foamRolling": "10 min",
+        "warmUpCoolDown": "always"
+      }
+    },
+    {
+      "strength": {
+        "deadlift": "4 sets of 5",
+        "squats": "4 sets of 8",
+        "benchPress": "4 sets of 6",
+        "overheadPress": "3 sets of 8",
+        "pushUp": "4 sets of 20",
+        "pullUp": "3 sets of 10",
+        "barbellRow": "3 sets of 10",
+        "bicepCurl": "3 sets of 12",
+        "legPress": "4 sets of 10",
+        "coreWork": "15 min"
+      }
+    },
+    {
+      "balanceAndStability": {
+        "singleLegStand": "3 sets of 30 sec each leg",
+        "bosuSquats": "3 sets of 10",
+        "balanceBoard": "10 min",
+        "taiChi": "20 min",
+        "stabilityBallWork": "15 min",
+        "yogaBalancePoses": "20 min",
+        "plankVariations": "3 sets of 1 min",
+        "birdDog": "3 sets of 10",
+        "sidePlank": "3 sets of 30 sec",
+        "agilityLadder": "10 min"
+      }
+    },
+    {
+      "generalFitness": {
+        "briskWalk": "30 min",
+        "fullBodyStretch": "15 min",
+        "pushUp": "2 sets of 15",
+        "jumpingJacks": "2 sets of 25",
+        "lightJog": "10 min",
+        "dumbbellCurls": "2 sets of 12",
+        "squats": "2 sets of 20",
+        "waterIntake": "2L/day",
+        "sleep": "7–8 hours",
+        "restDay": "once a week"
+      }
+    }
+  ]
+}

@@ -1,0 +1,301 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FitnessBuddy</title>
+    <link rel="stylesheet" href="home.css" />
+  </head>
+  <body>
+    <div id="Nav-section">
+      <a id="left">MYFITNESSBUDDY</a>
+      <div class="nav-links">
+        <a class="middle" href="#match-sec">findMatch</a>
+        <a class="middle" href="#chat-sec">chat</a>
+        <a class="middle" href="#fitnesstrack">trackfitness</a>
+        <a class="middle" href="#bmi-calc">BMI</a>
+      </div>
+      <img
+        id="profile-img"
+        style="width: 40px; height: 40px; border-radius: 50%"
+        src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+      />
+      <a id="right">username</a>
+      <div class="hamburger" onclick="toggleSidebar()">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+      <a onclick="toggleSidebar()">✕ Close</a>
+      <a href="#match-sec">findMatch</a>
+      <a href="#chat-sec">chat</a>
+      <a href="#fitnesstrack">trackfitness</a>
+      <a href="#bmi-calc">BMI</a>
+      <a id="right">username</a>
+    </div>
+
+    <!-- matchSection -->
+    <div id="match-sec">
+      <div id="left-match">
+        <img src="match.png" alt="Fitness Match" />
+      </div>
+      <div id="right-match">
+        <h3>
+          Find Your Match with <span style="color: #00ffcc">FitnessBuddy</span>
+        </h3>
+        <button id="matchBtn">Get Match</button>
+      </div>
+    </div>
+
+    <!-- chatSection -->
+    <div id="chat-sec">
+      <div id="left-chat">
+        <h3>Chat with your FitnessBuddy and share your growth</h3>
+        <button id="chatbtn">Chat</button>
+      </div>
+      <div id="right-chat">
+        <img
+          id="img"
+          src="https://plus.unsplash.com/premium_photo-1684761949804-fd8eb9a5b6cc?fm=jpg&q=60&w=3000"
+        />
+      </div>
+    </div>
+
+    <!-- fitnesstrack -->
+    <div id="fitnesstrack">
+      <div id="left-track">
+        <img
+          src="https://freerangestock.com/sample/119816/bar-graph-vector-icon.jpg"
+        />
+      </div>
+      <div id="right-track">
+        <h3>Track Your Fitness Goal</h3>
+        <button id="fitnessBtn">Check</button>
+      </div>
+    </div>
+
+    <!-- bmi calculator -->
+    <div id="bmi-calc">
+      <div id="left-bmi">
+        <h3>Calculate your BMI and track your health</h3>
+        <button id="bmi-btn">BMI</button>
+      </div>
+      <div id="right-bmi">
+        <img
+          src="https://assets.clevelandclinic.org/transform/ed667597-5baf-4fcc-a5f9-f9d7cdf3352e/MeasuringBMI-1293501993-770x533-1_jpg"
+        />
+      </div>
+    </div>
+    <div style="text-align: center; margin: 40px 0 20px">
+      <h2 style="font-size: 28px; color: #0088cc; font-weight: 700">
+        🏋️‍♂️ Gyms Near You
+      </h2>
+      <p style="color: #666; font-size: 16px">
+        Explore our top fitness partners in your city
+      </p>
+    </div>
+    <div id="gym"></div>
+
+    <div
+      id="footer"
+      style="
+        width: 100%;
+        background-color: #000;
+        color: #f0f0f0;
+        padding: 40px 20px;
+        font-family: 'Segoe UI', sans-serif;
+      "
+    >
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          max-width: 1200px;
+          margin: auto;
+        "
+      >
+        <!-- Brand -->
+        <div style="flex: 1 1 200px; margin-bottom: 20px">
+          <h2 style="color: #00ccff; font-size: 24px; margin-bottom: 10px">
+            MYFITNESSBUDDY
+          </h2>
+          <p style="font-size: 14px; color: #ccc">
+            Empowering your fitness journey. Track, connect, and grow with your
+            fitness buddy.
+          </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div style="flex: 1 1 150px; margin-bottom: 20px">
+          <h4 style="margin-bottom: 10px; color: #fff">Quick Links</h4>
+          <ul style="list-style: none; padding: 0; font-size: 14px">
+            <li>
+              <a href="#" style="text-decoration: none; color: #aaa">Home</a>
+            </li>
+            <li>
+              <a href="#" style="text-decoration: none; color: #aaa">Match</a>
+            </li>
+            <li>
+              <a href="#" style="text-decoration: none; color: #aaa">Profile</a>
+            </li>
+            <li>
+              <a href="#" style="text-decoration: none; color: #aaa">Contact</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact Info -->
+        <div style="flex: 1 1 200px; margin-bottom: 20px">
+          <h4 style="margin-bottom: 10px; color: #fff">Contact</h4>
+          <p style="font-size: 14px; color: #ccc">
+            📧 support@fitnessbuddy.com
+          </p>
+          <p style="font-size: 14px; color: #ccc">📍 New Delhi, India</p>
+        </div>
+
+        <!-- Social Icons -->
+        <div style="flex: 1 1 150px; margin-bottom: 20px">
+          <h4 style="margin-bottom: 10px; color: #fff">Follow Us</h4>
+          <div style="display: flex; gap: 10px">
+            <a href="#" style="color: #00ccff; font-size: 18px"></a>
+            <a href="#" style="color: #00ccff; font-size: 18px"></a>
+            <a href="#" style="color: #00ccff; font-size: 18px"></a>
+            <a href="#" style="color: #00ccff; font-size: 18px"></a>
+          </div>
+        </div>
+      </div>
+
+      <hr style="border: 0.5px solid #333; margin: 30px 0" />
+      <p style="text-align: center; font-size: 12px; color: #777">
+        © 2025 MYFITNESSBUDDY. All rights reserved.
+      </p>
+    </div>
+
+    <script>
+      function toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("open");
+      }
+    </script>
+  </body>
+</html>
+
+<script type="module">
+  let gymDiv = document.getElementById("gym");
+  console.log("hrll");
+  let matchBtn = document.getElementById("matchBtn");
+  matchBtn.addEventListener("click", () => {
+    console.log("hello");
+    window.location.href = "match.html";
+  });
+
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+  import {
+    getAuth,
+    onAuthStateChanged,
+  } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+  import {
+    getFirestore,
+    setDoc,
+    doc,
+    getDocs,
+    collection,
+  } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAnZyj3eRo4iaxgRqZffTikxVkqtXE0-mM",
+    authDomain: "fitnessbuddy-9344c.firebaseapp.com",
+    projectId: "fitnessbuddy-9344c",
+    storageBucket: "fitnessbuddy-9344c.appspot.com",
+    messagingSenderId: "64226198275",
+    appId: "1:64226198275:web:9ff4693836167c04889f36",
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log(user);
+      getData(user.email);
+    }
+  });
+  let userName = document.getElementById("right");
+  //let psd = document.getElementById("profile-img");
+  async function getData(email) {
+    userName.innerText = " ";
+    //psd.src = "";
+    let userData = collection(db, "users");
+    let user = await getDocs(userData);
+    let userRes = user.docs
+      .map((doc) => ({ id: doc.id, ...doc.data() }))
+      .find((userD) => {
+        return userD.email === email;
+      });
+    console.log(userRes);
+    // findGym("delhi");
+    // main(userRes);
+    userName.innerText = `${userRes.name}`;
+    fetchGym(userRes);
+    // psd.src = `&{userRes.image}`;
+  }
+
+  let chatbtn = document.getElementById("chatbtn");
+  chatbtn.addEventListener("click", () => {
+    window.location.href = "chat.html";
+  });
+  let fitnessBtn = document.getElementById("fitnessBtn");
+  fitnessBtn.addEventListener("click", () => {
+    window.location.href = "fitnesstrack.html";
+  });
+  let bmiBtn = document.getElementById("bmi-btn");
+  bmiBtn.addEventListener("click", () => {
+    window.location.href = "bmi.html";
+  });
+  async function fetchGym(userRes) {
+    let city = userRes.location.toLowerCase();
+    console.log(city);
+    try {
+      let gymsData = await fetch(
+        `https://gym-api-7afee-default-rtdb.asia-southeast1.firebasedatabase.app/${city}.json`
+      );
+      let gymres = await gymsData.json(); // ← ✅ use parentheses
+      console.log(gymres);
+      displayGym(gymres);
+    } catch (error) {
+      console.error("Error fetching gym data:", error);
+    }
+  }
+  gymDiv.innerHTML = "";
+  function displayGym(gymres) {
+    gymDiv.innerHTML = "";
+
+    if (!gymres || Object.keys(gymres).length === 0) {
+      gymDiv.innerHTML = `<p style="text-align:center;color:#ff4444;font-size:16px;">No gym partners found in your city yet.</p>`;
+      return;
+    }
+
+    const gymsArray = Array.isArray(gymres) ? gymres : Object.values(gymres);
+
+    gymsArray.forEach((gym) => {
+      const card = document.createElement("div");
+      card.className = "gym-card";
+
+      // Default image if none provided
+      const imageURL =
+        "https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&w=600"; // free Unsplash gym image
+
+      card.innerHTML = `
+      <img src="${imageURL}" alt="${gym.name}" />
+      <div class="gym-card-body">
+        <h3>${gym.name}</h3>
+        <p><i class="fa-solid fa-location-dot" style="color:#0088cc;"></i> ${gym.location}</p>
+        <button class="visit-btn">Visit</button>
+      </div>
+    `;
+      gymDiv.appendChild(card);
+    });
+  }
+</script>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BMI Calculator</title>
+    <link rel="stylesheet" href="bmi.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav id="Nav-section">
+      <a href="home.html" id="left">MYFITNESSBUDDY</a>
+      <div class="nav-links">
+        <a href="match.html">Find Match</a>
+        <a href="chat.html">Chat</a>
+        <a href="fitnesstrack.html">Track Fitness</a>
+        <a href="bmi.html" class="active">BMI</a>
+      </div>
+      <img
+        id="profile-img"
+        src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+      />
+      <div class="profile">
+        <a id="right">Username</a>
+      </div>
+      <div class="hamburger" onclick="toggleSidebar()">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </nav>
+
+    <div class="nav-sidebar" id="sidebar">
+      <a onclick="toggleSidebar()">✕ Close</a>
+      <a href="match.html">Find Match</a>
+      <a href="chat.html">Chat</a>
+      <a href="fitnesstrack.html">Track Fitness</a>
+      <a href="bmi.html">BMI</a>
+      <a id="right">Username</a>
+    </div>
+
+    <section class="main-container">
+      <h1>BODY MASS INDEX CALCULATOR<span class="accent">./</span></h1>
+      <p class="desc" style="color: black">
+        With our easy-to-use BMI calculator, you can quickly determine your body
+        mass index and get insights into your overall body fat and potential
+        health risks.
+      </p>
+
+      <div class="bmi-wrapper">
+        <div class="bmi-form">
+          <h3>Your Body Measurements<span class="accent">./</span></h3>
+          <div class="gender-buttons">
+            <button id="femaleBtn ">Female</button>
+            <button id="maleBtn">Male</button>
+            <button id="otherBtn">Other</button>
+          </div>
+          <label>Weight</label>
+          <input
+            type="number"
+            placeholder="Enter any number from 1 till 450"
+            id="weightInbox"
+          />
+
+          <label>Height</label>
+          <input
+            type="number"
+            placeholder="Enter any number from 1 till 300"
+            id="heightInbox"
+          />
+
+          <button class="calculate-btn">BMI</button>
+        </div>
+
+        <div class="bmi-result">
+          <h3>Body Mass Index<span class="accent">./</span></h3>
+          <div class="bmi-value" id="bmiValue">0.0</div>
+          <p id="advice"></p>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      function toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("open");
+      }
+    </script>
+  </body>
+</html>
+<script type="module">
+  const userName = document.getElementById("right");
+  userName.innerText = "";
+  const femaleBtn = document.getElementById("femaleBtn");
+  const maleBtn = document.getElementById("maleBtn");
+  const otherBtn = document.getElementById("otherBtn");
+  const weightInbox = document.getElementById("weightInbox");
+  const heightInbox = document.getElementById("heightInbox");
+  const bmiValue = document.getElementById("bmiValue");
+  const advice = document.getElementById("advice");
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+  import {
+    getAuth,
+    onAuthStateChanged,
+  } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+  import {
+    getFirestore,
+    doc,
+    getDocs,
+    collection,
+    updateDoc,
+  } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAnZyj3eRo4iaxgRqZffTikxVkqtXE0-mM",
+    authDomain: "fitnessbuddy-9344c.firebaseapp.com",
+    projectId: "fitnessbuddy-9344c",
+    storageBucket: "fitnessbuddy-9344c.appspot.com",
+    messagingSenderId: "64226198275",
+    appId: "1:64226198275:web:9ff4693836167c04889f36",
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  onAuthStateChanged(auth, (user) => {
+    console.log(user.email);
+    if (user) {
+      findWeigth(user.email);
+    }
+  });
+  async function findWeigth(userEmail) {
+    const userData = collection(db, "users");
+    const users = await getDocs(userData);
+    const user = users.docs
+      .map((doc) => ({ id: doc.id, ...doc.data() }))
+      .find((ele) => ele.email === userEmail);
+    userName.innerText = `${user.name}`;
+    console.log(user.weight);
+    console.log(user.height);
+    console.log(user.age);
+    console.log(user.gender);
+    if (user.gender === "Male") {
+      maleBtn.style.backgroundColor = "#00ccff";
+      maleBtn.style.color = "white";
+    } else if (user.gender === "Female") {
+      femaleBtn.style.backgroundColor = "#00ccff";
+      femaleBtn.style.color = "white";
+    } else {
+      otherBtn.style.background = "#00ccff";
+      otherBtn.style.color = "white";
+    }
+
+    weightInbox.value = `${user.weight}`;
+    heightInbox.value = `${user.height}`;
+    document.querySelector("input").disabled = true;
+    heightInbox.disabled = true;
+    let bmiData = await fetch(
+      "https://bmi-api-42c3e-default-rtdb.asia-southeast1.firebasedatabase.app/bmiCategories.json"
+    );
+    let dataRes = await bmiData.json();
+    console.log(dataRes);
+    calculateBmi(dataRes, user);
+  }
+  function calculateBmi(dataRes, user) {
+    advice.innerText = "";
+    bmiValue.innerText = "";
+    let heightInM = user.height / 100;
+    let BMI = user.weight / (heightInM * heightInM);
+    bmiValue.innerText = `${Math.floor(BMI)}`;
+    console.log(dataRes);
+    let matchCategory = dataRes.find(
+      (ele) => ele.range.max > BMI && ele.range.min < BMI
+    );
+    if (matchCategory) {
+      console.log("you got the data", matchCategory.advice);
+      advice.innerText = `${matchCategory.advice}`;
+    }
+  }
+</script>

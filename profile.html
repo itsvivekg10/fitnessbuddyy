@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fitness Buddy Profile</title>
+    <style>
+      :root {
+        --bg: #0f0f0f;
+        --fg: #f0f0f0;
+        --muted: #aaa;
+        --card: rgba(255, 255, 255, 0.05);
+        --input-bg: rgba(255, 255, 255, 0.08);
+        --radius: 12px;
+        --accent: #00adb5;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      html,
+      body {
+        height: 100%;
+        background-color: var(--bg);
+        color: var(--fg);
+        overflow: hidden;
+      }
+
+      .main-wrapper {
+        display: flex;
+        height: 100vh;
+        width: 100%;
+      }
+
+      .left-panel {
+        width: 50%;
+        background: url("loginweb.jpg") no-repeat center center/cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 2rem;
+      }
+
+      .left-panel h2 {
+        color: white;
+        font-size: 2rem;
+        text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.8);
+      }
+
+      .right-panel {
+        width: 50%;
+        background-color: white;
+        color: black;
+        overflow-y: auto;
+        padding: 2rem;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        font-size: 1.8rem;
+      }
+
+      .profile-grid {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .profile-pic {
+        flex: 1;
+        min-width: 180px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .profile-pic-circle {
+        width: 160px;
+        height: 160px;
+        border: 2px dashed var(--muted);
+        border-radius: 50%;
+        background-size: cover;
+        background-position: center;
+      }
+
+      .form-section {
+        flex: 2;
+        min-width: 280px;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1.2rem;
+      }
+
+      .form-group label {
+        font-weight: 600;
+        margin-bottom: 0.4rem;
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        padding: 0.7rem;
+        background-color: var(--input-bg);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: var(--radius);
+        color: black;
+        font-size: 0.95rem;
+        outline: none;
+      }
+
+      button {
+        margin-top: 1.5rem;
+        width: 100%;
+        padding: 0.9rem;
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        border-radius: var(--radius);
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: 0.3s ease;
+      }
+
+      button:hover {
+        background: #029ea7;
+        transform: scale(1.02);
+      }
+
+      @media (max-width: 768px) {
+        .main-wrapper {
+          flex-direction: column;
+          overflow: auto;
+        }
+
+        .left-panel {
+          display: none;
+        }
+
+        .right-panel {
+          width: 100%;
+          height: auto;
+        }
+
+        html,
+        body {
+          overflow: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-wrapper">
+      <div class="left-panel">
+        <h2>"Train insane or remain the same"</h2>
+      </div>
+
+      <div class="right-panel">
+        <h1>Fitness Buddy Profile</h1>
+        <div class="profile-grid">
+          <div class="profile-pic">
+            <div id="profilePicPreview" class="profile-pic-circle"></div>
+            <input type="file" id="img" accept="image/*" />
+          </div>
+          <div class="form-section">
+            <form id="profileForm">
+              <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" placeholder="John Doe" />
+              </div>
+
+              <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" placeholder="25" />
+              </div>
+
+              <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" placeholder="City, Country" />
+              </div>
+
+              <div class="form-group">
+                <label for="workouts">Preferred Workouts</label>
+                <select id="workouts">
+                  <option disabled selected>Select</option>
+                  <option>weightLoss</option>
+                  <option>weightGain</option>
+                  <option>muscleUp</option>
+                  <option>height</option>
+                  <option>sixPackAbs</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="height">Height (cm)</label>
+                <input type="number" id="height" placeholder="175" />
+              </div>
+
+              <div class="form-group">
+                <label for="weight">Weight (kg)</label>
+                <input type="number" id="weight" placeholder="70" />
+              </div>
+
+              <div class="form-group">
+                <label for="gender">Gender</label>
+                <select id="gender">
+                  <option disabled selected>Select</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                  <option>Other</option>
+                  <option>Prefer not to say</option>
+                </select>
+              </div>
+
+              <button type="submit">Save Profile</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HTML unchanged above -->
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+      import {
+        getAuth,
+        onAuthStateChanged,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+      import {
+        getFirestore,
+        doc,
+        setDoc,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyAnZyj3eRo4iaxgRqZffTikxVkqtXE0-mM",
+        authDomain: "fitnessbuddy-9344c.firebaseapp.com",
+        projectId: "fitnessbuddy-9344c",
+        databaseURL: "https://fitnessbuddy-9344c-default-rtdb.firebaseio.com",
+        storageBucket: "fitnessbuddy-9344c.appspot.com",
+        messagingSenderId: "64226198275",
+        appId: "1:64226198275:web:9ff4693836167c04889f36",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app); // Firestore
+
+      const profileForm = document.getElementById("profileForm");
+      const imgInput = document.getElementById("img");
+      const profilePicPreview = document.getElementById("profilePicPreview");
+
+      let base64Image = "";
+
+      imgInput.addEventListener("change", () => {
+        const file = imgInput.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = () => {
+            base64Image = reader.result;
+            profilePicPreview.style.backgroundImage = `url('${base64Image}')`;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          profileForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById("name").value.trim();
+            const age = document.getElementById("age").value.trim();
+            const location = document.getElementById("location").value.trim();
+            const fitnessGoal = document
+              .getElementById("workouts")
+              .value.trim();
+            const height = document.getElementById("height").value.trim();
+            const weight = document.getElementById("weight").value.trim();
+            const gender = document.getElementById("gender").value;
+
+            if (
+              !name ||
+              !age ||
+              !location ||
+              !fitnessGoal ||
+              !height ||
+              !weight ||
+              !gender ||
+              !base64Image
+            ) {
+              alert("Please fill out all fields before submitting.");
+              return;
+            }
+
+            const profileData = {
+              name,
+              age,
+              location,
+              fitnessGoal,
+              height,
+              weight,
+              gender,
+              image: base64Image,
+              email: user.email,
+              uid: user.uid,
+              day: 1,
+              growth: 0,
+              Date: new Date(),
+            };
+
+            try {
+              await setDoc(doc(db, "users", user.uid), profileData);
+              alert("Profile saved successfully!");
+              window.location.href = "home.html";
+            } catch (error) {
+              console.error("Error saving profile:", error);
+              alert("Failed to save profile.");
+            }
+          });
+        } else {
+          alert("You must be logged in to use this page.");
+        }
+      });
+    </script>
+  </body>
+</html>

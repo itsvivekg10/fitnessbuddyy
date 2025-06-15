@@ -1,0 +1,27 @@
+{
+  "chats": {
+    "uid1,uid2": {
+      "messages": {
+        "-Nxyz123abc": {
+          "sender": "uid1",
+          "text": "Hey, how are you?",
+          "timestamp": 1718203000000
+        },
+        "-Nxyz456def": {
+          "sender": "uid2",
+          "text": "I'm good! What about you?",
+          "timestamp": 1718203060000
+        }
+      }
+    },
+    "uid2,uid3": {
+      "messages": {
+        "-Nxyz789ghi": {
+          "sender": "uid2",
+          "text": "Hello there!",
+          "timestamp": 1718203100000
+        }
+      }
+    }
+  }
+}

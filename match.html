@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FitnessBuddy Match</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        background-color: #f4f6f8;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Navbar */
+      #Nav-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 1.5rem;
+        background-color: #1f1f1f;
+        position: sticky;
+        top: 0;
+        z-index: 999;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      #Nav-section a {
+        color: #fff;
+        text-decoration: none;
+        margin: 0 1rem;
+        font-size: 1rem;
+        transition: color 0.3s ease;
+      }
+
+      #Nav-section a:hover {
+        color: #00ccff;
+      }
+
+      #left {
+        font-weight: bold;
+        font-size: 1.2rem;
+        color: #00ccff;
+      }
+
+      #right {
+        background-color: #333;
+        padding: 0.4rem 1rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        color: white;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+      }
+
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        padding: 5px;
+      }
+
+      .hamburger div {
+        width: 25px;
+        height: 3px;
+        background-color: white;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+      }
+
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: -280px;
+        height: 100%;
+        width: 280px;
+        background-color: #1f1f1f;
+        padding: 2rem 1.5rem;
+        transition: left 0.4s ease-in-out;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .sidebar a {
+        display: block;
+        margin: 0.8rem 0;
+        font-size: 1.1rem;
+        color: #ccc;
+        padding: 0.5rem 0;
+        transition: color 0.3s ease, transform 0.2s ease;
+      }
+
+      .sidebar a:hover {
+        color: #00ccff;
+        transform: translateX(5px);
+      }
+
+      .sidebar.open {
+        left: 0;
+      }
+
+      .main-content {
+        display: flex;
+        flex: 1;
+        overflow: hidden;
+      }
+
+      .match-sidebar {
+        width: 350px;
+        background-color: #111111;
+        border-right: 1px solid #ddd;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        color: whitesmoke;
+      }
+
+      .tab {
+        padding: 10px;
+        text-align: center;
+        font-weight: bold;
+        border-radius: 20px;
+        margin-bottom: 1rem;
+        background-color: #00ccff;
+        color: whitesmoke;
+      }
+
+      .match-list {
+        overflow-y: auto;
+        flex: 1;
+      }
+
+      .match {
+        background-color: #111111;
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+        gap: 10px;
+        cursor: pointer;
+      }
+
+      .match img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+      }
+
+      .match-info span {
+        font-weight: 500;
+      }
+
+      .match-info small {
+        color: gray;
+        font-size: 0.8rem;
+      }
+
+      .profile-inner {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 2rem;
+        background-color: #111111;
+        padding: 2rem;
+        border-radius: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        max-width: 800px;
+        width: 100%;
+        margin-left: 110px;
+        margin-top: 10px;
+        color: #f4f6f8;
+      }
+
+      .profile-photo {
+        width: 300px;
+        height: 400px;
+        border-radius: 20px;
+        object-fit: cover;
+      }
+
+      .profile-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .actions {
+        margin-top: 1.5rem;
+        display: flex;
+        gap: 1.5rem;
+      }
+
+      .actions button {
+        padding: 0.7rem 1.2rem;
+        font-size: 1.5rem;
+        background-color: transparent;
+        border: 2px solid transparent;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+      .verified {
+        color: #00ccff;
+      }
+      .like-btn {
+        color: #e60073;
+        border-color: #e60073;
+      }
+
+      .like-btn:hover {
+        background-color: #e60073;
+        color: white;
+      }
+
+      .pass-btn {
+        color: #ff4d4d;
+        border-color: #ff4d4d;
+      }
+
+      .pass-btn:hover {
+        background-color: #ff4d4d;
+        color: white;
+      }
+      #line {
+        height: 370px;
+        width: 2px;
+        background-color: #00ccff;
+      }
+      /* Hide match section on mobile */
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+        }
+
+        .hamburger {
+          display: flex;
+        }
+
+        .match-sidebar {
+          display: none;
+        }
+
+        .main-content {
+          flex-direction: column;
+          padding: 1rem;
+        }
+
+        #profile-card {
+          width: 100%;
+          padding: 0 1rem;
+        }
+
+        .profile-inner {
+          flex-direction: column;
+          align-items: center;
+          margin-left: 0;
+          margin-top: 1rem;
+          padding: 1rem;
+          width: 100%;
+        }
+
+        .profile-photo {
+          width: 90%;
+          max-height: 300px;
+          height: auto;
+        }
+
+        #line {
+          display: none;
+        }
+
+        .profile-info {
+          align-items: center;
+          text-align: center;
+          width: 100%;
+        }
+
+        .actions {
+          justify-content: center;
+          gap: 1rem;
+        }
+
+        h1 {
+          font-size: 1.4rem;
+          text-align: center;
+          padding: 0 10px;
+        }
+
+        p {
+          font-size: 0.95rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .profile-photo {
+          width: 100%;
+          max-height: 250px;
+        }
+
+        .actions button {
+          width: 50px;
+          height: 50px;
+          font-size: 1.2rem;
+        }
+
+        .profile-inner {
+          padding: 0.5rem;
+        }
+
+        h1 {
+          font-size: 1.2rem;
+        }
+
+        p {
+          font-size: 0.85rem;
+        }
+
+        #Nav-section {
+          flex-wrap: wrap;
+          padding: 0.8rem;
+        }
+
+        #user-name {
+          font-size: 0.85rem;
+        }
+
+        #right {
+          padding: 0.3rem 0.6rem;
+          font-size: 0.8rem;
+        }
+
+        .hamburger div {
+          width: 20px;
+          height: 2px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <div id="Nav-section">
+      <a href="home.html" id="left">MYFITNESSBUDDY</a>
+      <div class="nav-links">
+        <a href="match.html">findMatch</a>
+        <a href="chat.html">chat</a>
+        <a href="fitnesstrack.html">trackfitness</a>
+        <a href="bmi.html">BMI</a>
+      </div>
+      <img
+        id="profile-img"
+        style="width: 40px; height: 40px; border-radius: 50%"
+        src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+      />
+      <a id="right"><span id="user-name">username</span></a>
+      <div class="hamburger" onclick="toggleSidebar()">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+      <a onclick="toggleSidebar()">✕ Close</a>
+      <a href="match.html">findMatch</a>
+      <a href="chat.html">chat</a>
+      <a href="fitnesstrack.html">trackfitness</a>
+      <a href="bmi.html">BMI</a>
+      <a id="right"><span id="user-name">username</span></a>
+    </div>
+
+    <!-- Main Match Area (Hidden on mobile) -->
+    <div class="main-content">
+      <div class="match-sidebar">
+        <div class="tab">Matches</div>
+        <div class="match-list" id="match-list"></div>
+      </div>
+      <div class="profile-card" id="profile-card"></div>
+    </div>
+    <script>
+      function toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("open");
+      }
+    </script>
+    <!-- Firebase + Script -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+      import {
+        getAuth,
+        onAuthStateChanged,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+      import {
+        getFirestore,
+        getDocs,
+        collection,
+        updateDoc,
+        doc,
+        arrayUnion,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyAnZyj3eRo4iaxgRqZffTikxVkqtXE0-mM",
+        authDomain: "fitnessbuddy-9344c.firebaseapp.com",
+        projectId: "fitnessbuddy-9344c",
+        storageBucket: "fitnessbuddy-9344c.appspot.com",
+        messagingSenderId: "64226198275",
+        appId: "1:64226198275:web:9ff4693836167c04889f36",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+
+      let currentUser = null;
+      let matches = [];
+      let index = 0;
+
+      const usernameDisplay = document.getElementById("user-name");
+
+      onAuthStateChanged(auth, async (user) => {
+        if (user) await loadUser(user.email);
+      });
+
+      async function loadUser(email) {
+        const snapshot = await getDocs(collection(db, "users"));
+        const allUsers = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        currentUser = allUsers.find((u) => u.email === email);
+        usernameDisplay.textContent = currentUser?.name || "Unknown";
+
+        matches = allUsers.filter(
+          (u) =>
+            u.email !== email &&
+            u.location?.toLowerCase() === currentUser.location?.toLowerCase() &&
+            u.fitnessGoal.toLowerCase() ===
+              currentUser.fitnessGoal.toLowerCase()
+        );
+
+        renderProfile();
+        renderMatchList();
+      }
+
+      function renderProfile() {
+        const container = document.getElementById("profile-card");
+        if (index >= matches.length) {
+          container.innerHTML = `<h2>No more profiles</h2>`;
+          return;
+        }
+
+        const user = matches[index];
+        container.innerHTML = container.innerHTML = `
+        <h1>FIND YOUR PERFECT GYM BUDDY</h1>
+<p style="font-size: 1.1rem; margin-top: 10px; color: #555;">
+  "Great things are achieved not alone, but with someone who pushes, supports, and grows with you — one rep at a time."
+</p>
+
+  <div class="profile-inner">
+    <img class="profile-photo" src="${
+      user.image || "https://via.placeholder.com/200"
+    }" /><div id="line"></div>
+    <div class="profile-info">
+      <div class="profile-name">${user.name || "Unknown"}, ${
+          user.age || ""
+        } <span class="verified">✔️</span></div>
+      <div class="profile-details">
+        <p>${user.location || ""}</p>
+        <p>${user.goal || ""}</p>
+      </div>
+      <div class="actions">
+        <button class="pass-btn" title="Pass">❌</button>
+        <button class="like-btn" title="Like">❤️</button>
+      </div>
+    </div>
+  </div>
+`;
+
+        container.querySelector(".pass-btn").onclick = () => {
+          index++;
+          renderProfile();
+        };
+
+        container.querySelector(".like-btn").onclick = () => likeUser(user);
+      }
+
+      async function likeUser(user) {
+        await updateDoc(doc(db, "users", user.uid), {
+          likedBy: arrayUnion(currentUser),
+        });
+
+        const isMutual = user.liked?.some((u) => u.uid === currentUser.uid);
+        if (isMutual) {
+          await updateDoc(doc(db, "users", currentUser.uid), {
+            friends: arrayUnion(user),
+          });
+          await updateDoc(doc(db, "users", user.uid), {
+            friends: arrayUnion(currentUser),
+          });
+        } else {
+          await updateDoc(doc(db, "users", currentUser.uid), {
+            liked: arrayUnion(user),
+          });
+        }
+
+        index++;
+        renderProfile();
+      }
+
+      function renderMatchList() {
+        const list = document.getElementById("match-list");
+        list.innerHTML = (currentUser.likedBy || [])
+          .map(
+            (user) => `
+            <div class="match">
+              <img src="${user.image || "https://via.placeholder.com/50"}" />
+              <div class="match-info">
+                <span>${user.name}</span><br />
+                <small>Pending</small>
+              </div>
+            </div>`
+          )
+          .join("");
+      }
+    </script>
+  </body>
+</html>

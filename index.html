@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body,
+      html {
+        height: 100%;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .container {
+        display: flex;
+        height: 100vh;
+        width: 100%;
+      }
+
+      .left-side {
+        flex: 1;
+        background-image: url("loginweb.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .right-side {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.95);
+      }
+
+      .register-container {
+        width: 80%;
+        max-width: 400px;
+        padding: 30px;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .register-container h2 {
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      .register-container input,
+      .register-container select {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+        outline: none;
+        transition: border 0.3s;
+      }
+
+      .register-container input:focus,
+      .register-container select:focus {
+        border-color: #292929;
+      }
+
+      .register-container button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 15px;
+        background-color: #292929;
+        border: none;
+        color: white;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .register-container button:hover {
+        background-color: #1b1b1b;
+      }
+
+      .register-container a {
+        color: #292929;
+        text-decoration: none;
+      }
+
+      .register-container a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          flex-direction: column;
+        }
+
+        .left-side {
+          display: none; /* hide image */
+        }
+
+        .right-side {
+          flex: none;
+          width: 100%;
+          height: 100vh;
+          background-image: url("loginphone.jpg");
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: center;
+          backdrop-filter: blur(5px);
+        }
+
+        .register-container {
+          background-color: rgba(255, 255, 255, 0.95);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="left-side"></div>
+
+      <div class="right-side">
+        <div class="register-container">
+          <h2>REGISTER</h2>
+          <input id="email" placeholder="Enter your email" />
+          <input id="pass" placeholder="Enter your password" type="number" />
+
+          <button id="rgstrBtn">Register</button>
+          <p>Already have an account?</p>
+          <a href="login.html">Login</a>
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
+      import {
+        getAuth,
+        createUserWithEmailAndPassword,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+      import {
+        getFirestore,
+        doc,
+        setDoc,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyAnZyj3eRo4iaxgRqZffTikxVkqtXE0-mM",
+        authDomain: "fitnessbuddy-9344c.firebaseapp.com",
+        projectId: "fitnessbuddy-9344c",
+        storageBucket: "fitnessbuddy-9344c.firebasestorage.app",
+        messagingSenderId: "64226198275",
+        appId: "1:64226198275:web:9ff4693836167c04889f36",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+
+      document
+        .getElementById("rgstrBtn")
+        .addEventListener("click", async () => {
+          const email = document.getElementById("email").value;
+          const pass = document.getElementById("pass").value;
+
+          try {
+            const userCredential = await createUserWithEmailAndPassword(
+              auth,
+              email,
+              pass
+            );
+            const user = userCredential.user;
+
+            await setDoc(doc(db, "users", user.uid), {
+              email: user.email,
+            });
+            window.location.href = "profile.html";
+            alert("Registration Successful!");
+          } catch (err) {
+            console.error(err);
+            alert("Error: " + err.message);
+          }
+        });
+    </script>
+  </body>
+</html>

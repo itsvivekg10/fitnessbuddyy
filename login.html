@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body,
+      html {
+        height: 100%;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .container {
+        display: flex;
+        height: 100vh;
+        width: 100%;
+      }
+
+      .left-side {
+        flex: 1;
+        background-image: url("loginweb.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .right-side {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.95);
+      }
+
+      .login-container {
+        width: 80%;
+        max-width: 400px;
+        padding: 30px;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .login-container h2 {
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      .login-container input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+        outline: none;
+        transition: border 0.3s;
+      }
+
+      .login-container input:focus {
+        border-color: #1b1b1b;
+      }
+
+      .login-container button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 15px;
+        background-color: #1b1b1b;
+        border: none;
+        color: white;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .login-container button:hover {
+        background-color: #464646;
+      }
+
+      .login-container a {
+        color: #292929;
+        text-decoration: none;
+      }
+
+      .login-container a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          flex-direction: column;
+        }
+
+        .left-side {
+          display: none;
+        }
+
+        .right-side {
+          flex: none;
+          width: 100%;
+          height: 100vh;
+          background-image: url("loginphone.jpg");
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: center;
+          backdrop-filter: blur(5px);
+        }
+
+        .login-container {
+          background-color: rgba(255, 255, 255, 0.95);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="left-side"></div>
+
+      <div class="right-side">
+        <div class="login-container">
+          <h2>LOGIN</h2>
+          <input id="email" placeholder="Enter your email" type="email" />
+          <input id="pass" placeholder="Enter your password" type="password" />
+          <button id="loginBtn">Sign In</button>
+          <p>Don't have an account?</p>
+          <a href="index.html">Register</a>
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
+      import {
+        getAuth,
+        signInWithEmailAndPassword,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+      import {
+        getFirestore,
+        doc,
+        getDoc,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyAnZyj3eRo4iaxgRqZffTikxVkqtXE0-mM",
+        authDomain: "fitnessbuddy-9344c.firebaseapp.com",
+        projectId: "fitnessbuddy-9344c",
+        storageBucket: "fitnessbuddy-9344c.firebasestorage.app",
+        messagingSenderId: "64226198275",
+        appId: "1:64226198275:web:9ff4693836167c04889f36",
+      };
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+
+      document
+        .getElementById("loginBtn")
+        .addEventListener("click", async () => {
+          const email = document.getElementById("email").value;
+          const pass = document.getElementById("pass").value;
+
+          try {
+            const userCredential = await signInWithEmailAndPassword(
+              auth,
+              email,
+              pass
+            );
+            const user = userCredential.user;
+
+            const docRef = doc(db, "users", user.uid);
+            const docSnap = await getDoc(docRef);
+            if (user) {
+              window.location.href = "home.html";
+            }
+          } catch (err) {
+            alert("Sign in failed. Please check your credentials.");
+            console.log(err);
+          }
+        });
+    </script>
+  </body>
+</html>
